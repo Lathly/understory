@@ -26,7 +26,13 @@ export interface QueryResult {
   answer: string;
   steps: number;
   traceId: string;
-  /** True when the run used every step without reaching an answer; `answer` then says so. */
+  /**
+   * True when the run used its whole step budget. `answer` is not necessarily an
+   * apology: the final step is tool-free, so a budget-exhausted run answers from
+   * what it already retrieved and the answer may be a usable partial one (recorded
+   * as the "step-limit-partial" trace outcome). Only when it produced nothing does
+   * `answer` say so.
+   */
   stepLimited?: boolean;
 }
 
